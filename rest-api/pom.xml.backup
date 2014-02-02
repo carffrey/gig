@@ -1,0 +1,196 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.carffrey.gigs</groupId>
+	<artifactId>gigs</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<properties>
+		<app.domain>domain1</app.domain>
+		<glassfish.home>C:\Data\Applications\glassfish-4.0\glassfish4\glassfish</glassfish.home>
+		<domain.username>admin</domain.username>
+		<domain.password>admin</domain.password>
+		<!-- Path to password file with form AS_ADMIN_PASSWORD=admin AS_ADMIN_USERPASSWORD=admin 
+			AS_ADMIN_ADMINPASSWORD=admin AS_ADMIN_MASTERPASSWORD=admin C:\Data\Applications\glassfish-4.0\glassfish4\glassfish\domains\domain1\config\admin-keyfile 
+			c:\data\password.txt -->
+		<!-- domain.passwordFile>C:\Data\Applications\glassfish-4.0\glassfish4\glassfish\domains\domain1\config\admin-keyfile</domain.passwordFile-->
+		<domain.passwordFile>c:\data\password.txt</domain.passwordFile>
+		<test.int.skip>true</test.int.skip>
+		<domain.log.dir>C:\Data\Applications\glassfish-4.0\glassfish4\glassfish\domains\${app.domain}</domain.log.dir>
+
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+	</properties>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven.java.net</id>
+			<name>Java.net Maven2 Repository</name>
+			<url>http://download.java.net/maven/2</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<finalName>gigs</finalName>
+		<plugins>
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-surefire-plugin</artifactId> -->
+			<!-- <configuration> -->
+			<!-- <forkMode>never</forkMode> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
+
+			<plugin>
+				<groupId>org.glassfish.maven.plugin</groupId>
+				<artifactId>maven-glassfish-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<glassfishDirectory>${glassfish.home}</glassfishDirectory>
+					<user>${domain.username}</user>
+					<!-- adminPassword>${domain.password}</adminPassword -->
+					<passwordFile>${domain.passwordFile}</passwordFile>
+					<savemasterpassword>true</savemasterpassword>
+					<autoCreate>true</autoCreate>
+					<echo>true</echo>
+					<terse>true</terse>
+					<debug>true</debug>
+					<!-- skip>${test.int.skip}</skip -->
+					<domain>
+						<name>${app.domain}</name>
+						<adminPort>4848</adminPort>
+						<httpPort>8080</httpPort>
+						<httpsPort>8443</httpsPort>
+						<iiopPort>3700</iiopPort>
+						<jmsPort>7676</jmsPort>
+						<reuse>true</reuse>
+						<!-- jvmOptions> <option>-Djava.security.auth.login.config=${project.build.testOutputDirectory}/login.conf</option> 
+							</jvmOptions -->
+						<!-- properties> <property> <name>server.log-service.file</name> <value>${domain.log.dir}/server.log</value> 
+							</property> </properties -->
+						<!-- auth> <realm> <name>testRealm</name> <className>com.sun.enterprise.security.auth.realm.file.FileRealm</className> 
+							<properties> <property> <name>jaas-context</name> <value>test</value> </property> 
+							<property> <name>file</name> <value>${project.build.outputDirectory}/keyfile</value> 
+							</property> </properties> </realm> </auth -->
+						<!-- <resourceDescriptor>path/to/resources.xml</resourceDescriptor> -->
+						<resources>
+							<!-- connectionFactory> <jndiName>jms/testQueueConnectionFactory</jndiName> 
+								<type>queueConnectionFactory</type> <properties> <property> <name>UserName</name> 
+								<value>guest</value> </property> <property> <name>Password</name> <value>guest</value> 
+								</property> <property> <name>AddressList</name> <value>localhost:7676</value> 
+								</property> </properties> </connectionFactory -->
+							<!-- jmsTopic> <jndiName>jms/testTopic</jndiName> <destinationName>TestTopic</destinationName> 
+								<connectionFactory> <jndiName>jms/testTopicConnectionFactory</jndiName> <properties> 
+								<property> <name>UserName</name> <value>guest</value> </property> <property> 
+								<name>Password</name> <value>guest</value> </property> <property> <name>AddressList</name> 
+								<value>localhost:7676</value> </property> </properties> </connectionFactory 
+								</jmsTopic -->
+							<jdbcDataSource>
+								<name>jdbc/GigDS</name>
+								<type>connectionPoolDataSource</type>
+								<poolName>gigsPool</poolName>
+								<className>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</className>
+								<description>MySQL Gig DB Pool</description>
+								<allowNonComponentCallers>false</allowNonComponentCallers>
+								<validateConnections>true</validateConnections>
+								<validationMethod>metaData</validationMethod>
+								<properties>
+									<property>
+										<name>portNumber</name>
+										<value>3306</value>
+									</property>
+									<property>
+										<name>password</name>
+										<value>gig123</value>
+									</property>
+									<property>
+										<name>user</name>
+										<value>gig</value>
+									</property>
+									<property>
+										<name>serverName</name>
+										<value>localhost</value>
+									</property>
+									<property>
+										<name>databaseName</name>
+										<value>gig</value>
+									</property>
+									<property>
+										<name>datasourceName</name>
+										<value>jdbc/GigDS</value>
+									</property>
+								</properties>
+							</jdbcDataSource>
+						</resources>
+					</domain>
+					<components>
+						<component>
+							<name>${project.artifactId}</name>
+							<artifact>${project.build.directory}/${project.build.finalName}.war</artifact>
+						</component>
+					</components>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+            <groupId>org.glassfish.jersey.security</groupId>
+            <artifactId>oauth2-client</artifactId>
+            <version>2.5.1</version>
+            <scope>compile</scope>
+        </dependency>
+		
+		<dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>2.5.1</version>
+            <scope>test</scope>
+        </dependency>
+		
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>2.1.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>commonj.sdo</artifactId>
+			<version>2.1.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>2.5.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.28</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

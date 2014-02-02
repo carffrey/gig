@@ -24,116 +24,8 @@
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 	</properties>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>maven.java.net</id>
-			<name>Java.net Maven2 Repository</name>
-			<url>http://download.java.net/maven/2</url>
-		</pluginRepository>
-	</pluginRepositories>
-
 	<build>
 		<finalName>gigs</finalName>
-		<plugins>
-			<!-- <plugin> -->
-			<!-- <groupId>org.apache.maven.plugins</groupId> -->
-			<!-- <artifactId>maven-surefire-plugin</artifactId> -->
-			<!-- <configuration> -->
-			<!-- <forkMode>never</forkMode> -->
-			<!-- </configuration> -->
-			<!-- </plugin> -->
-
-			<plugin>
-				<groupId>org.glassfish.maven.plugin</groupId>
-				<artifactId>maven-glassfish-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<glassfishDirectory>${glassfish.home}</glassfishDirectory>
-					<user>${domain.username}</user>
-					<!-- adminPassword>${domain.password}</adminPassword -->
-					<passwordFile>${domain.passwordFile}</passwordFile>
-					<savemasterpassword>true</savemasterpassword>
-					<autoCreate>true</autoCreate>
-					<echo>true</echo>
-					<terse>true</terse>
-					<debug>true</debug>
-					<!-- skip>${test.int.skip}</skip -->
-					<domain>
-						<name>${app.domain}</name>
-						<adminPort>4848</adminPort>
-						<httpPort>8080</httpPort>
-						<httpsPort>8443</httpsPort>
-						<iiopPort>3700</iiopPort>
-						<jmsPort>7676</jmsPort>
-						<reuse>true</reuse>
-						<!-- jvmOptions> <option>-Djava.security.auth.login.config=${project.build.testOutputDirectory}/login.conf</option> 
-							</jvmOptions -->
-						<!-- properties> <property> <name>server.log-service.file</name> <value>${domain.log.dir}/server.log</value> 
-							</property> </properties -->
-						<!-- auth> <realm> <name>testRealm</name> <className>com.sun.enterprise.security.auth.realm.file.FileRealm</className> 
-							<properties> <property> <name>jaas-context</name> <value>test</value> </property> 
-							<property> <name>file</name> <value>${project.build.outputDirectory}/keyfile</value> 
-							</property> </properties> </realm> </auth -->
-						<!-- <resourceDescriptor>path/to/resources.xml</resourceDescriptor> -->
-						<resources>
-							<!-- connectionFactory> <jndiName>jms/testQueueConnectionFactory</jndiName> 
-								<type>queueConnectionFactory</type> <properties> <property> <name>UserName</name> 
-								<value>guest</value> </property> <property> <name>Password</name> <value>guest</value> 
-								</property> <property> <name>AddressList</name> <value>localhost:7676</value> 
-								</property> </properties> </connectionFactory -->
-							<!-- jmsTopic> <jndiName>jms/testTopic</jndiName> <destinationName>TestTopic</destinationName> 
-								<connectionFactory> <jndiName>jms/testTopicConnectionFactory</jndiName> <properties> 
-								<property> <name>UserName</name> <value>guest</value> </property> <property> 
-								<name>Password</name> <value>guest</value> </property> <property> <name>AddressList</name> 
-								<value>localhost:7676</value> </property> </properties> </connectionFactory 
-								</jmsTopic -->
-							<jdbcDataSource>
-								<name>jdbc/GigDS</name>
-								<type>connectionPoolDataSource</type>
-								<poolName>gigsPool</poolName>
-								<className>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</className>
-								<description>MySQL Gig DB Pool</description>
-								<allowNonComponentCallers>false</allowNonComponentCallers>
-								<validateConnections>true</validateConnections>
-								<validationMethod>metaData</validationMethod>
-								<properties>
-									<property>
-										<name>portNumber</name>
-										<value>3306</value>
-									</property>
-									<property>
-										<name>password</name>
-										<value>gig123</value>
-									</property>
-									<property>
-										<name>user</name>
-										<value>gig</value>
-									</property>
-									<property>
-										<name>serverName</name>
-										<value>localhost</value>
-									</property>
-									<property>
-										<name>databaseName</name>
-										<value>gig</value>
-									</property>
-									<property>
-										<name>datasourceName</name>
-										<value>jdbc/GigDS</value>
-									</property>
-								</properties>
-							</jdbcDataSource>
-						</resources>
-					</domain>
-					<components>
-						<component>
-							<name>${project.artifactId}</name>
-							<artifact>${project.build.directory}/${project.build.finalName}.war</artifact>
-						</component>
-					</components>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 
 	<dependencies>
@@ -144,6 +36,26 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.oltu.oauth2</groupId>
+			<artifactId>org.apache.oltu.oauth2.client</artifactId>
+			<version>0.31</version>
+		</dependency>
+		
+		<!-- dependency>
+            <groupId>org.glassfish.jersey.security</groupId>
+            <artifactId>oauth2-client</artifactId>
+            <version>2.5.1</version>
+            <scope>compile</scope>
+        </dependency -->
+		
+		<!-- dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>2.5.1</version>
+            <scope>test</scope>
+        </dependency-->
+		
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>javax.persistence</artifactId>
