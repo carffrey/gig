@@ -1,4 +1,4 @@
-package com.carffrey.model.service;
+package com.carffrey.rest.service;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

@@ -1,4 +1,4 @@
-package com.carffrey.model.filter.auth;
+package com.carffrey.rest.filter;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
 
-import com.carffrey.model.service.OAuthSimpleService;
+import com.carffrey.rest.service.OAuthSimpleService;
 
 @Provider
 public class AuthenticationFilter implements ContainerRequestFilter {
@@ -34,8 +34,11 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     		// Authorized
     		return;
     	}
-    
-		if (OAuthSimpleService.getAccessToken() != null) {
+    	
+    	String authHeader = requestContext.getHeaderString("Authorization");
+    	authHeader = authHeader.replaceFirst("Bearer ", "");
+    	// TODO get accessToken
+		if (OAuthSimpleService.getAuthenticatedUser(authHeader) != null) {
 			// TODO OAuthSimpleService keeps one and only one token
 			// Requires updating to support more than one user
 			// Token found for user, authorized

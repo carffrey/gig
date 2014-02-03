@@ -1,4 +1,4 @@
-package com.carffrey.model.resource;
+package com.carffrey.rest.auth.resource;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,14 +17,13 @@ import org.apache.oltu.oauth2.common.OAuthProviderType;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 
 @Path("google")
-public class GooglePlusResource {
+public class GoogleResource {
     @Context
     private UriInfo uriInfo;
 
 	@GET
 	@Produces("text/html")
-	public Response setup() {
-		//@QueryParam("clientId") String consumerKey,@QueryParam("clientSecret") String consumerSecret
+	public Response authenticate() {
 		try {
 			OAuthClientRequest request = OAuthClientRequest
 					.authorizationProvider(OAuthProviderType.GOOGLE)

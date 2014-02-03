@@ -14,7 +14,7 @@
 		<!-- Path to password file with form AS_ADMIN_PASSWORD=admin AS_ADMIN_USERPASSWORD=admin 
 			AS_ADMIN_ADMINPASSWORD=admin AS_ADMIN_MASTERPASSWORD=admin C:\Data\Applications\glassfish-4.0\glassfish4\glassfish\domains\domain1\config\admin-keyfile 
 			c:\data\password.txt -->
-		<!-- domain.passwordFile>C:\Data\Applications\glassfish-4.0\glassfish4\glassfish\domains\domain1\config\admin-keyfile</domain.passwordFile-->
+		<!-- domain.passwordFile>C:\Data\Applications\glassfish-4.0\glassfish4\glassfish\domains\domain1\config\admin-keyfile</domain.passwordFile -->
 		<domain.passwordFile>c:\data\password.txt</domain.passwordFile>
 		<test.int.skip>true</test.int.skip>
 		<domain.log.dir>C:\Data\Applications\glassfish-4.0\glassfish4\glassfish\domains\${app.domain}</domain.log.dir>
@@ -41,21 +41,28 @@
 			<artifactId>org.apache.oltu.oauth2.client</artifactId>
 			<version>0.31</version>
 		</dependency>
+
+		<!--dependency>
+			<groupId>google-api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.17.0</version>
+		    <scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/yourJar.jar</systemPath>
+		</dependency-->
 		
-		<!-- dependency>
-            <groupId>org.glassfish.jersey.security</groupId>
-            <artifactId>oauth2-client</artifactId>
-            <version>2.5.1</version>
-            <scope>compile</scope>
-        </dependency -->
-		
-		<!-- dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>2.5.1</version>
-            <scope>test</scope>
-        </dependency-->
-		
+		<!-- may not need this if we use the above -->
+		<dependency>
+			<groupId>com.googlecode.jsontoken</groupId>
+			<artifactId>jsontoken</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- dependency> <groupId>org.glassfish.jersey.security</groupId> <artifactId>oauth2-client</artifactId> 
+			<version>2.5.1</version> <scope>compile</scope> </dependency -->
+
+		<!-- dependency> <groupId>org.glassfish.jersey.core</groupId> <artifactId>jersey-client</artifactId> 
+			<version>2.5.1</version> <scope>test</scope> </dependency -->
+
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>javax.persistence</artifactId>

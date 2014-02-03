@@ -1,4 +1,4 @@
-package com.carffrey.model.resource;
+package com.carffrey.rest.auth.resource;
 
 import java.net.URI;
 
@@ -11,6 +11,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
+import net.oauth.jsontoken.JsonToken;
+
 import org.apache.oltu.oauth2.client.OAuthClient;
 import org.apache.oltu.oauth2.client.URLConnectionClient;
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
@@ -21,14 +23,15 @@ import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.types.GrantType;
 import org.apache.oltu.oauth2.common.token.OAuthToken;
 
-import com.carffrey.model.service.OAuthSimpleService;
+import com.carffrey.rest.service.OAuthSimpleService;
+import com.google.gson.JsonPrimitive;
 
 // IMPORTANT - This url must match the url registered in 
 // Google Developers Console: (https://cloud.google.com/console/project/apps~carffrey-gigs/apiui/credential)
 // I have registered the following oauth url
 // http://localhost:8080/gigs/rest/oauth2callback
 @Path("oauth2callback")
-public class AuthorizationResource {
+public class GoogleAuthorizationResource {
     @Context
     private UriInfo uriInfo;
 
@@ -51,11 +54,16 @@ public class AuthorizationResource {
 					.setGrantType(GrantType.AUTHORIZATION_CODE)
 					.buildBodyMessage();
 
+
 			OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
 			OAuthJSONAccessTokenResponse oAuthResponse = oAuthClient.accessToken(request);
 
 			OAuthToken accessToken = oAuthResponse.getOAuthToken();
-			OAuthSimpleService.setAccessToken(accessToken);
+			String jwtToken = oAuthResponse.getParam("id_token");
+			JsonToken jsonToken = AuthUtil.deserializeJwt(jwtToken);
+			JsonPrimitive id = jsonToken.getParamAsPrimitive("sub");
+			
+			OAuthSimpleService.addAuthenticatedUser(accessToken, id.getAsString());
 		} catch (OAuthSystemException e) {
 			throw new WebApplicationException(e);
 		} catch (OAuthProblemException e) {

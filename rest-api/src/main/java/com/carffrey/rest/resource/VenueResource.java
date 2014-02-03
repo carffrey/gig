@@ -1,4 +1,4 @@
-package com.carffrey.model.resource;
+package com.carffrey.rest.resource;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -19,6 +19,8 @@ import javax.ws.rs.core.UriInfo;
 
 import com.carffrey.model.Venue;
 
+@Stateless
+@LocalBean
 @Path("/venues")
 public class VenueResource {
 
