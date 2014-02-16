@@ -23,7 +23,7 @@
     data-clientid="249121464147-gnslq9d5g0e4c5dlen9g01tpis2n8c9o.apps.googleusercontent.com"
     data-cookiepolicy="single_host_origin"
     data-requestvisibleactions="http://schemas.google.com/AddActivity"
-    data-scope="https://www.googleapis.com/auth/plus.login">
+    data-scope="openid profile email https://www.googleapis.com/auth/plus.login">
   </span>
 </span>
 </body>

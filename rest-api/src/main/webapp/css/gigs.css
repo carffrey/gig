@@ -1,0 +1,424 @@
+/* Global Nav
+   ========================================================================== */
+body {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	color: #ccc;
+	background-color: #333;
+	/*background-image:url('../img/bg.jpg');
+background-color:#cccccc;*/
+	}
+a {
+	text-decoration: none;
+	font-weight: bold;
+	color:  #ccc;
+	outline: none;
+	}
+a:visited {
+	color:  #ccc;
+	}
+a:active {
+	color:  #ccc;
+	}
+a:hover {
+	color: #ccc;
+	text-decoration: underline;
+	}
+.ahem {
+	display: none;
+	}
+strong, b {
+	font-weight: bold;
+	}
+p {
+	font-size: 12px;
+	line-height: 22px;
+	margin-top: 20px;
+	margin-bottom: 10px; 
+	}
+
+/* weird ie5win bug: all line-height to font-size ratios must agree or box gets pushed around. UPDATE: this has turned out to be very rare. my current recommendation is IGNORE this warning. at the moment i'm leaving it in only in case the issue turns up again. possibly the original bug in march 2001 was caused by an unusual combination of factors, although this solved it at the time.*/
+
+h1 {
+	font-size: 24px;
+	line-height: 44px;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 0;
+	}
+h2 {
+	font-size: 18px;
+	line-height: 40px;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 0;
+	}
+h3 {
+	font-size: 16px;
+	line-height: 22px;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 0;
+	}
+h4 {
+	font-size: 14px;
+	line-height: 26px;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 0;
+	}
+h5 {
+	font-size: 12px;
+	line-height: 22px;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 0;
+	}
+h6 {
+	font-size: 10px;
+	line-height: 18px;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 0;
+	}
+img {
+	border: 0;
+	}
+.nowrap {
+	white-space: nowrap;
+	font-size: 10px;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 0;
+/* must be combined with nobr in html for ie5win */
+	}
+.tiny {
+	font-size: 9px;
+	line-height: 16px;
+	margin-top: 15px;
+	margin-bottom: 5px; 
+	}
+.ten {
+	color: #ccc;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 16px;
+	margin-top: 15px;
+	margin-bottom: 5px; 
+	}
+#left {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	margin: 20px;
+	padding: 10px;
+	border: 5px solid #ccc;
+	background: #666;
+	width: 150px; /* ie5win fudge begins */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	width: 120px;
+	}
+html>body #left {
+	width: 120px; /* ie5win fudge ends */
+	}
+#middle {
+	margin: 20px 190px 20px 190px;
+	padding: 10px;
+	border: 5px solid #ccc;
+	background: #666;
+	}
+#right {
+	position: absolute;
+	top: 0px;
+	right: 0px; /* Opera5.02 will show a space at right when there is no scroll bar */
+	margin: 20px;
+	padding: 10px;
+	border: 5px solid #ccc;
+	background: #666;
+	width: 150px; /* ie5win fudge begins */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	width: 120px;
+	}
+html>body right {
+	width: 120px; /* ie5win fudge ends */
+	}
+pre {
+	font-size: 12px;
+	line-height: 22px;
+	margin-top: 20px;
+	margin-bottom: 10px; 
+	}
+
+
+#global-nav {
+	background: url(../images/jq-global-nav.png) repeat-x 0 bottom #1b1b1b;
+}
+
+#global-nav nav {
+	height: 34px;
+}
+
+#global-nav nav ul {
+	text-align: left;
+	display: inline;
+	float: left;
+	margin: 0;
+	list-style: none;
+	border-right: 1px solid rgba(255, 255, 255, 0.0976562);
+	border-left: 1px solid rgba(0, 0, 0, 0.347656);
+}
+
+.tinynav-container { display: none }
+.tinynav { display: none }
+
+#global-nav nav ul.links {
+	float: right;
+}
+
+#global-nav nav ul li {
+	font: bold 13px/17px "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif;
+	display: inline-block;
+	float: left;
+	position: relative;
+	top: 1px;
+	cursor: pointer;
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+	text-shadow: 0 0px 2px #000;
+	border-left: 1px solid rgba(255, 255, 255, 0.0976562);
+	border-right: 1px solid rgba(0, 0, 0, 0.347656);
+}
+.ie #global-nav nav ul li {
+	top: 2px;
+}
+
+#global-nav nav ul li:hover {
+	background: url(../images/bg-footer-noise.jpg) #000;
+	color: #fff;
+}
+
+#global-nav nav ul li i {
+	height: 1em;
+}
+
+#global-nav nav ul li a {
+	color: #e6e6e6;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+	display: block;
+	padding: 8px 12px;
+}
+
+#global-nav nav ul li ul {
+	padding: 0;
+	position: absolute;
+	top: 32px;
+	left: -2px;
+	width: 120px;
+	display: none;
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transiton: opacity 0.2s;
+	transition: opacity 0.2s;
+	-webkit-box-shadow: 0 43px 5px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
+	z-index: 400;
+}
+
+#global-nav nav ul li ul.wide {
+	width: 260px;
+}
+
+#global-nav nav ul li ul li {
+	background: url(../images/bg-footer-noise.jpg) #000;
+	display: block;
+	color: #fff;
+	float: none;
+}
+
+#global-nav nav ul li ul li:hover { background: #000; }
+#global-nav nav ul li:hover ul {
+	display: block;
+	opacity: 1;
+	visibility: visible;
+}
+
+#global-nav nav ul.projects li.project {
+	width: 42px;
+	padding: 0;
+	height: 33px;
+	text-indent: -9999px;
+	background: url(../img/bg.jpg) -6px 0;
+	z-index: 10;
+}
+
+#global-nav nav ul.projects li.project a {
+	display: block;
+	height: 33px;
+}
+
+#global-nav nav ul.projects li.jquery-ui {
+	background-position: -57px 0px;
+}
+
+#global-nav nav ul.projects li.jquery-mobile {
+	background-position: -107px 0px;
+}
+
+#global-nav nav ul.projects li.sizzlejs {
+	background-position: -155px 0px;
+}
+
+#global-nav nav ul.projects li.qunitjs {
+	background-position: -204px 0px;
+}
+
+#logo-events aside {
+	float: right;
+	margin-bottom: -18px;
+}
+
+nav#main {
+	background-color: rgba(0, 0, 0, 0.18);
+	border-radius: 10px 10px 0 0;
+	border-right: 1px solid rgba(2, 2, 2, 0.28);
+	border-left: 1px solid rgba(2, 2, 2, 0.28);
+	border-top: 1px solid rgba(250, 250, 250, 0.27);
+	-webkit-box-shadow: rgba(255,255,255,0.3) 0 1px 0, rgba(0,0,0,0.3) 0 -1px 0;
+	box-shadow: rgba(255,255,255,0.3) 0 1px 0, rgba(0,0,0,0.3) 0 -1px 0;
+	-webkit-box-shadow: 0 0 3px rgba(1, 1, 1, 0.7);
+	box-shadow: 0 0 5px rgba(1, 1, 1, 0.7);
+}
+
+.jquery-ui nav#main,
+.sizzlejs nav#main {
+	background-color: rgba(12, 12, 12, 0.06);
+}
+.qunitjs nav#main {
+	background-color: rgba(156, 52, 147, 0.5);
+}
+.jquery-learn nav#main {
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.jquery-foundation nav#main {
+	background-color: rgba(102, 102, 102, 0.1);
+}
+
+.no-boxshadow nav#main {
+	border-top: 1px solid #333;
+	border-left: 1px solid #333;
+	border-right: 1px solid #333;
+}
+
+nav#main ul {
+	margin: 0;
+	float: left;
+	width: 70%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+nav#main li {
+	float: left;
+	font: normal normal 16px "klavika-web", "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif;
+	margin-right: 2px;
+}
+
+nav#main li a {
+	color: #fff;
+	text-decoration: none;
+	padding: 6px 10px;
+	display: block;
+	border: 1px solid transparent;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.76);
+}
+
+nav#main li a:hover,
+nav#main li.current a,
+nav#main .searchform {
+	background: none;
+	-webkit-box-shadow: inset 0 0 5px rgba(0,0,0, 0.4), rgba(255,255,255,0.1) 0 1px 0;
+	box-shadow: inset 0 0 5px rgba(0,0,0, 0.4), rgba(255,255,255,0.1) 0 1px 0;
+	border-radius: 4px;
+	border: 1px solid rgba(0,0,0,0.25);
+	color: #fff;
+	text-shadow: rgba(0, 0, 0, 0.796875) 0px -1px 0px, rgba(255, 255, 255, 0.296875) 0px 0px 10px;
+}
+
+nav#main .searchform {
+	float: right;
+	width: 28%;
+	margin-top: 12px;
+	padding: 0;
+	border-radius: 20px;
+	position: relative;
+}
+
+nav#main .searchform input {
+	text-decoration: none;
+	font: 12px/12px "Lucida Grande", Lucida, Verdana, sans-serif;
+	padding: 5px 10px;
+	margin: 0;
+	background-color: transparent;
+	border-style: none;
+	color: #fff;
+	line-height: 1.3;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.76);
+	width: 85%;
+	box-shadow: none;
+}
+
+nav#main .searchform input:focus {
+	outline: none;
+}
+
+.no-boxshadow nav#main .searchform {
+	border: 1px solid #333;
+}
+
+.no-boxshadow nav#main .searchform input {
+	background: #fff;
+	color: #333;
+}
+
+/*
+ * 1. :-moz-placeholder has been deprecated in favor of ::-moz-placeholder.
+ * 2. Using :placeholder for completeness.
+ */
+nav#main .searchform input::-webkit-input-placeholder {
+	color: #fff;
+}
+nav#main .searchform input:-moz-placeholder { /* 1 */
+	color: #fff;
+}
+nav#main .searchform input::-moz-placeholder {
+	color: #fff;
+}
+nav#main .searchform input:-ms-input-placeholder {
+	color: #fff;
+}
+nav#main .searchform input:placeholder { /* 2 */
+	color: #fff;
+}
+
+nav#main .searchform .icon-search {
+	position: absolute;
+	right: 10px;
+	top: 3px;
+	bottom: 3px;
+	border-width: 0;
+	border-left: 1px solid rgba(7, 7, 7, 0.65);
+	background-color: transparent;
+	padding: 0 0 0 7px;
+	opacity: 0.33;
+	color: #fff;
+}
+
+#broadcast {
+	height: 100px;
+}

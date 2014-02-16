@@ -37,7 +37,7 @@ public class GoogleAuthorizationResource {
 
     
     @GET
-    public Response authorize(@QueryParam("code") String code, @QueryParam("state") String state) {
+    public String authorize(@QueryParam("code") String code, @QueryParam("state") String state) {
 
 		final URI uri = UriBuilder.fromUri(uriInfo.getBaseUriBuilder().path("/..").build().normalize())
 				.path("index.jsp").build();
@@ -64,12 +64,14 @@ public class GoogleAuthorizationResource {
 			JsonPrimitive id = jsonToken.getParamAsPrimitive("sub");
 			
 			OAuthSimpleService.addAuthenticatedUser(accessToken, id.getAsString());
+	    	return accessToken.getAccessToken();
 		} catch (OAuthSystemException e) {
 			throw new WebApplicationException(e);
 		} catch (OAuthProblemException e) {
 			throw new WebApplicationException(e);
 		}
 
-        return Response.seeOther(uri).build();
+        //return Response.seeOther(uri).build();
+
     }
 }

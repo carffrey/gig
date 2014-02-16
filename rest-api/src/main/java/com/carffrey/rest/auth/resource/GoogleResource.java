@@ -29,7 +29,7 @@ public class GoogleResource {
 					.authorizationProvider(OAuthProviderType.GOOGLE)
 					.setClientId("249121464147-gnslq9d5g0e4c5dlen9g01tpis2n8c9o.apps.googleusercontent.com")
 					.setResponseType("code")
-					.setScope("https://www.googleapis.com/auth/plus.login")
+					.setScope("openid https://www.googleapis.com/auth/plus.login") //openid profile email https://www.googleapis.com/auth/plus.login
 					.setRedirectURI(
 							UriBuilder.fromUri(uriInfo.getBaseUri())
 									.path("oauth2callback").build().toString())

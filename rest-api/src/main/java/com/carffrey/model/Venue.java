@@ -1,38 +1,54 @@
 package com.carffrey.model;
 
-import javax.persistence.Column;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlElement;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Venue {
-
-	@Column
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+@Access(value=AccessType.FIELD)
+public class Venue extends Model {
 	
-	@Column
 	private String name;
 
-	@XmlElement
-	public long getId() {
-		return id;
-	}
+	@OneToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})	
+	private Address address;
+	
+	private String phoneNumber;
+	
+	@OneToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+	private VenueDetail detail;
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	@XmlElement
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public VenueDetail getDetail() {
+		return detail;
+	}
+
+	public void setDetail(VenueDetail detail) {
+		this.detail = detail;
 	}
 }
