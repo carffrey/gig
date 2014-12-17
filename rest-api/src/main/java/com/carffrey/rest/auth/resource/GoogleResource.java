@@ -27,7 +27,7 @@ public class GoogleResource {
 		try {
 			OAuthClientRequest request = OAuthClientRequest
 					.authorizationProvider(OAuthProviderType.GOOGLE)
-					.setClientId("249121464147-gnslq9d5g0e4c5dlen9g01tpis2n8c9o.apps.googleusercontent.com")
+					.setClientId("your-client-id")
 					.setResponseType("code")
 					.setScope("openid https://www.googleapis.com/auth/plus.login") //openid profile email https://www.googleapis.com/auth/plus.login
 					.setRedirectURI(
