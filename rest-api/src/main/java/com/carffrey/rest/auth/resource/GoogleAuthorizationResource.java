@@ -26,52 +26,42 @@ import org.apache.oltu.oauth2.common.token.OAuthToken;
 import com.carffrey.rest.service.OAuthSimpleService;
 import com.google.gson.JsonPrimitive;
 
-// IMPORTANT - This url must match the url registered in 
-// Google Developers Console: (https://cloud.google.com/console/project/apps~carffrey-gigs/apiui/credential)
-// I have registered the following oauth url
-// http://localhost:8080/gigs/rest/oauth2callback
 @Path("oauth2callback")
 public class GoogleAuthorizationResource {
     @Context
     private UriInfo uriInfo;
 
-    
     @GET
     public String authorize(@QueryParam("code") String code, @QueryParam("state") String state) {
 
-		final URI uri = UriBuilder.fromUri(uriInfo.getBaseUriBuilder().path("/..").build().normalize())
-				.path("index.jsp").build();
+	final URI uri = UriBuilder.fromUri(uriInfo.getBaseUriBuilder().path("/..").build().normalize())
+			.path("index.jsp").build();
     	try {
-    		// TODO make these params static vals somewhere
-			OAuthClientRequest request = OAuthClientRequest
-					.tokenProvider(OAuthProviderType.GOOGLE)
-					.setCode(code)
-					.setClientId(
-							"249121464147-gnslq9d5g0e4c5dlen9g01tpis2n8c9o.apps.googleusercontent.com")
-					.setClientSecret("Fy7jvFqlcrTJkExtz2PaHa8c")
-					.setRedirectURI(UriBuilder.fromUri(uriInfo.getBaseUri())
-							.path("oauth2callback").build().toString())
-					.setGrantType(GrantType.AUTHORIZATION_CODE)
-					.buildBodyMessage();
+		OAuthClientRequest request = OAuthClientRequest
+				.tokenProvider(OAuthProviderType.GOOGLE)
+				.setCode(code)
+				.setClientId("your-client-id")
+				.setClientSecret("your-client-secret")
+				.setRedirectURI(UriBuilder.fromUri(uriInfo.getBaseUri())
+						.path("oauth2callback").build().toString())
+				.setGrantType(GrantType.AUTHORIZATION_CODE)
+				.buildBodyMessage();
 
 
-			OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
-			OAuthJSONAccessTokenResponse oAuthResponse = oAuthClient.accessToken(request);
+		OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
+		OAuthJSONAccessTokenResponse oAuthResponse = oAuthClient.accessToken(request);
 
-			OAuthToken accessToken = oAuthResponse.getOAuthToken();
-			String jwtToken = oAuthResponse.getParam("id_token");
-			JsonToken jsonToken = AuthUtil.deserializeJwt(jwtToken);
-			JsonPrimitive id = jsonToken.getParamAsPrimitive("sub");
-			
-			OAuthSimpleService.addAuthenticatedUser(accessToken, id.getAsString());
-	    	return accessToken.getAccessToken();
-		} catch (OAuthSystemException e) {
-			throw new WebApplicationException(e);
-		} catch (OAuthProblemException e) {
-			throw new WebApplicationException(e);
-		}
-
-        //return Response.seeOther(uri).build();
-
+		OAuthToken accessToken = oAuthResponse.getOAuthToken();
+		String jwtToken = oAuthResponse.getParam("id_token");
+		JsonToken jsonToken = AuthUtil.deserializeJwt(jwtToken);
+		JsonPrimitive id = jsonToken.getParamAsPrimitive("sub");
+		
+		OAuthSimpleService.addAuthenticatedUser(accessToken, id.getAsString());
+    		return accessToken.getAccessToken();
+	} catch (OAuthSystemException e) {
+		throw new WebApplicationException(e);
+	} catch (OAuthProblemException e) {
+		throw new WebApplicationException(e);
+	}
     }
 }
